@@ -14,7 +14,7 @@ import java.util.List;
 @RabbitListener(queues = "my-queue")
 public class AMQPReceiver {
 
-    public static List<String> messageList = new ArrayList<String>();
+    private List<String> messageList = new ArrayList<String>();
 
     @RabbitHandler
     public void receive(String in) {
@@ -22,7 +22,7 @@ public class AMQPReceiver {
             messageList.add(in);
     }
 
-    public static String getMessages() {
+    public String getMessages() {
         return messageList.toString();
     }
 }

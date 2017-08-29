@@ -30,7 +30,7 @@ public class SpringAmqpApplication {
     @RequestMapping("/receive")
     public String receive(){
 
-        return AMQPReceiver.getMessages();
+        return receiver.getMessages();
 
     }
 
