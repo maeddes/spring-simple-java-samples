@@ -1,3 +1,4 @@
-# spring-simple-singles
+# spring-simple-java-samples
+
 
 single spring projects 
