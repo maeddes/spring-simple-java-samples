@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'" />
+
+<hr/>
+
+<h3>Add a ToDo</h3>
+<form method="POST" th:action="@{/}">
+    <label for="description">Description:</label>
+    <input type="text" name="description" size="150"/>
+    <input type="submit"/>
+</form>
+
+<hr/>
+
+<h2>ToDo List</h2>
+<div th:unless="${#lists.isEmpty(items)}">
+    <dl th:each="item : ${items}">
+        <dt class="item">
+            <form method="POST" th:action="@{|/done/${item.id}|}">
+                <span th:text="${item.description}">ToDo</span>
+                <input type="submit" value="Done!"/>
+            </form>
+        </dt>
+    </dl>
+</div>
+
+<div th:if="${#lists.isEmpty(items)}">
+    <p>You have no ToDos :-)</p>
+</div>
+
+
+<hr/>
+
+</body>
+</html>
