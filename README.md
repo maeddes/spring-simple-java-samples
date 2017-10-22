@@ -1,4 +1,4 @@
 # spring-simple-java-samples
 
 
-single spring projects 
+single spring projects - one workspace
