@@ -31,69 +31,6 @@ public class SpringTodoListSimpleCqrsApplication {
 	}
 }
 
-@Controller
-@RequestMapping("/")
-class ToDoListQueryController {
-
-	@Autowired
-	ToDoItemRepository toDoItemRepository;
-
-	@RequestMapping("/test")
-	public String test(){
-
-		return "Ok";
-	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String getItems(Model model){
-
-		System.out.println("In getItems: ");
-		List<ToDoItem> items = toDoItemRepository.findAll();
-		System.out.println("In getItems: "+items);
-		if(items != null){
-			model.addAttribute("items", items);
-		}
-		System.out.println("In getItems: "+items);
-
-		model.addAttribute("name","matthias");
-		return "items";
-
-	}
-}
 
 
-@Controller
-@RequestMapping("/")
-class ToDoListCommandController {
 
-	@Autowired
-	private RabbitTemplate rabbitTemplate;
-
-	@Autowired
-	private Queue queue;
-
-	public void send(String message) {
-		this.rabbitTemplate.convertAndSend(queue.getName(), message);
-		System.out.println(" [x] Sent '" + message + "'");
-	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public String addItem(ToDoItem toDoItem){
-
-		System.out.println("In addItem: "+toDoItem);
-		this.send(toDoItem.getDescription());
-
-		return "redirect:/";
-
-	}
-
-	@RequestMapping(value = "/done/{id}", method = RequestMethod.POST)
-	public String setItemDone(@PathVariable int id){
-
-		System.out.println("In setItemDone: "+id);
-		//toDoItemRepository.delete(id);
-
-		return "redirect:/";
-
-	}
-}
