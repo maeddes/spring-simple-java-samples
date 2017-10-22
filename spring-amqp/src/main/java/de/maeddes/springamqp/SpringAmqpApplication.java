@@ -23,6 +23,7 @@ public class SpringAmqpApplication {
 
         String message = String.format("Test String %s", UUID.randomUUID());
         sender.send(message);
+
         return "Just sent: "+message;
 
     }
@@ -30,7 +31,10 @@ public class SpringAmqpApplication {
     @RequestMapping("/receive")
     public String receive(){
 
-        return receiver.getMessages();
+        String returnString = receiver.getMessages();
+        receiver.clearMessages();
+
+        return returnString;
 
     }
 

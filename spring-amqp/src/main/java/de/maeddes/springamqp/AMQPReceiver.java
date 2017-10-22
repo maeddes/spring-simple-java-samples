@@ -22,6 +22,12 @@ public class AMQPReceiver {
             messageList.add(in);
     }
 
+    public void clearMessages(){
+
+        this.messageList.clear();
+
+    }
+
     public String getMessages() {
         return messageList.toString();
     }
