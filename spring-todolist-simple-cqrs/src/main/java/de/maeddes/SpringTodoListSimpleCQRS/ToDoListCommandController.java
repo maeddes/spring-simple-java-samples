@@ -43,7 +43,13 @@ public class ToDoListCommandController {
     public String setItemDone(@PathVariable int id){
 
         System.out.println("In setItemDone: "+id);
-        //toDoItemRepository.delete(id);
+        this.send("done:"+id);
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/";
 

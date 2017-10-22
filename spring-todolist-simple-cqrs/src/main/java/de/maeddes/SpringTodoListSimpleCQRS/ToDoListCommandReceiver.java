@@ -13,7 +13,15 @@ public class ToDoListCommandReceiver {
     @RabbitHandler
     public void receive(String in) {
         System.out.println("Received '" + in + "'");
-        this.toDoItemRepository.save(new ToDoItem(in));
+        if(in.startsWith("done:")){
+
+            // unsafe hack
+            String id = in.split(":")[1];
+            if (id != null) this.toDoItemRepository.delete(new Integer(id));
+            return;
+
+        }
+        else this.toDoItemRepository.save(new ToDoItem(in));
     }
 
 }
