@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todouiservice
+  labels:
+    app: todouiservice
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    name: todouiservice
+    targetPort: 8080
+  selector:
+    app: todouiservice
+  type: NodePort
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: todouiservice
+  labels:
+    app: todouiservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todouiservice
+  template:
+    metadata:
+      labels:
+        app: todouiservice
+    spec:
+      containers:
+      - name: todouiservice
+        image: maeddes/todo-ui
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+      
+
+    
